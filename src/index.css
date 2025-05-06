@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+canvas {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+@layer components {
+  .pixelated {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  .card-container {
+    --tw-shadow: 4px -4px 0px 0px rgba(125, 125, 125, 0.21) inset;
+    --tw-shadow-colored: inset 3px -6px 0px 0px var(--tw-shadow-color);
+
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: theme("colors.white");
+    border-radius: theme("borderRadius.lg");
+    border: solid 2px #656565;
+    color: #656565;
+  }
+
+  .make-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn {
+    min-width: 100px;
+    --tw-shadow: 3px -4px 0px 0px rgba(125, 125, 125, 0.21) inset;
+    --tw-shadow-colored: inset 3px -4px 0px 0px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    padding-left: 0.75rem /* 12px */;
+    padding-right: 0.75rem /* 12px */;
+    padding-top: 0.5rem /* 8px */;
+    padding-bottom: 0.5rem /* 8px */;
+    font-weight: 600;
+    background-color: theme("colors.white");
+    border: 2px solid rgb(113, 113, 113);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: #656565;
+    transition: ease 100ms;
+  }
+  .btn:hover {
+    transform: translateY(1px);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* background-color: lightblue; */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+body {
+  position: fixed;
+  overflow: hidden;
+  overscroll-behavior-y: none;
+  font-family: "Istok Web", sans-serif;
+  /* font-weight: bold; */
+}
+
+.flex {
+  display: flex;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.centered {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.cursor {
+  color: white;
+}
+
+.show {
+  transition: opacity 1s linear;
+  opacity: 1;
+}
+.hide {
+  transition: opacity 1s linear;
+  opacity: 0;
+}
+
+.card-box {
+  top: 0px;
+  left: 0;
+  font-size: medium;
+}
