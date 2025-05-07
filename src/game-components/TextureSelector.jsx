@@ -11,7 +11,7 @@ import {
   treeImg,
 } from "../assets/block-icons/images";
 import { FiShoppingBag } from "react-icons/fi";
-import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineInventory2 } from "react-icons/md";
 import { PiGameController } from "react-icons/pi";
 import Loader from "../components/Loader";
 
@@ -160,7 +160,7 @@ const TextureSelector = () => {
           <span className="absolute top-1 left-1 text-[9px] text-[#0e0d0d] font-semibold">
             Q
           </span>
-          <IoSettingsOutline className="text-2xl" />
+          <MdOutlineInventory2 className="text-2xl" />
         </div>
         <div
           onClick={() => setInventoryBar(!inventorybar)}

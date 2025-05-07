@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ControlMenu, Header, Loader } from "../components";
-import { bgImg, landImg, landsImg, logoImg, settingImg } from "../assets";
+import {
+  bgImg,
+  landImg,
+  landsImg,
+  logoImg,
+  settingImg,
+  transferImg,
+} from "../assets";
 import { RxCross2 } from "react-icons/rx";
 import {
   createWorldFunc,
@@ -243,8 +250,8 @@ export default function Home() {
             onClick={() => setTranferWorldMenu(true)}
             className="make-flex flex-col card-container gap-2 w-[280px] h-[280px] text-base cursor-pointer"
           >
-            <div className="img-container w-[200px] h-[200px] make-flex">
-              <img src={settingImg} className="h-[160px]" />
+            <div className="img-container w-[250px] h-[200px] make-flex">
+              <img src={transferImg} className="w-[250px]" />
             </div>
             <h2 className="text-lg">Transfer World</h2>
           </div>

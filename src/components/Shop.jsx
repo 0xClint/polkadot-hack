@@ -57,7 +57,7 @@ const Shop = () => {
             </div>
             <div className="w-full make-flex justify-between my-2">
               <div className=" py-2 px-3 border make-flex rounded-md  h-8 text-lg w-[160px]">
-                10k Wei
+                0.0001 Wnd
               </div>
               <button
                 className="btn w-[100px] hover:scale-105"
@@ -113,7 +113,7 @@ const Shop = () => {
                   </div>
                   <div className="absolute w-[130px]  py-1 px-3 font-bold text-xs bg-[#c9743b] rounded-b-xl  flex justify-between  text-white">
                     <span>price</span>
-                    <span>10k Wei</span>
+                    <span> 0.0001 Wnd</span>
                   </div>
                 </div>
               );
