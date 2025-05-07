@@ -1,4 +1,6 @@
 import {
+  ITEM_NFT_CONTRACT_ABI,
+  ITEM_NFT_CONTRACT_ADDRESS,
   WORLD_CONTRACT_ABI,
   WORLD_CONTRACT_ADDRESS,
 } from "../contracts/constant";
@@ -12,6 +14,7 @@ import {
 import { wagmiConfig } from "./wagmiConfig";
 import { uploadFile } from "./lighthouse";
 import axios from "axios";
+import { parseEther, parseGwei } from "viem";
 
 // ***********world NFT contract************
 export const getTokenID = async () => {
@@ -113,32 +116,78 @@ export const getOwnerNftsFunc = async () => {
   }
 };
 
-// export const mintitemNFTFunc = async (itemID) => {
-//   try {
-//     const { request } = await simulateContract(wagmiConfig, {
-//       abi: WORLD_CONTRACT_ABI,
-//       address: WORLD_CONTRACT_ADDRESS,
-//       functionName: "createWorld",
-//       args: [tokenID, CID],
-//     });
+export const getItemDataFunc = async (id) => {
+  const account = getAccount(wagmiConfig);
+  try {
+    // const res = await axios.get(
+    //   `https://blockscout-asset-hub.parity-chains-scw.parity.io/api/v2/addresses/${account.address}/nft?type=ERC-721%2CERC-404%2CERC-1155`
+    // );
+    // let data = res.data.items;
 
-//     const hash = await writeContract(wagmiConfig, request);
-//     console.log(hash);
-//     await waitForTransactionReceipt(wagmiConfig, {
-//       hash,
-//     });
+    // data = data.filter(
+    //   ({ token }) =>
+    //     token.address.toLowerCase() === WORLD_CONTRACT_ADDRESS.toLowerCase()
+    // );
+    // console.log(data);
+    const res = await readContract(wagmiConfig, {
+      abi: ITEM_NFT_CONTRACT_ABI,
+      address: ITEM_NFT_CONTRACT_ADDRESS,
+      functionName: "items",
+      args: [id],
+    });
+    console.log(res);
+    return res;
+  } catch (error) {
+    console.error("Error calling contract function:", error);
+  }
+};
 
-//     const contract = new ethers.Contract(
-//       ITEM_NFT_CONTRACT_ADDRESS,
-//       ITEM_NFT_CONTRACT_ABI,
-//       signer
-//     );
-//     const tx = await contract.mint(itemID, { value: 10000 });
-//     await tx.wait();
-//   } catch (error) {
-//     console.error("Error calling contract function:", error);
-//   }
-// };
+export const createItemsFunc = async (
+  name,
+  description,
+  price,
+  tagId,
+  maxSupply = 1000000,
+  itemType = 1
+) => {
+  try {
+    const { request } = await simulateContract(wagmiConfig, {
+      abi: ITEM_NFT_CONTRACT_ABI,
+      address: ITEM_NFT_CONTRACT_ADDRESS,
+      functionName: "createItemByUser",
+      args: [name, description, price, maxSupply, tagId],
+    });
+
+    const hash = await writeContract(wagmiConfig, request);
+    console.log(hash);
+    await waitForTransactionReceipt(wagmiConfig, {
+      hash,
+    });
+  } catch (error) {
+    console.error("Error calling contract function:", error);
+  }
+};
+
+export const mintitemNFTFunc = async (itemID) => {
+  console.log(parseGwei("0.0000001"));
+  try {
+    const { request } = await simulateContract(wagmiConfig, {
+      abi: ITEM_NFT_CONTRACT_ABI,
+      address: ITEM_NFT_CONTRACT_ADDRESS,
+      functionName: "mint",
+      args: [2],
+      value: parseEther("0.00001"),
+    });
+
+    const hash = await writeContract(wagmiConfig, request);
+    console.log(hash);
+    await waitForTransactionReceipt(wagmiConfig, {
+      hash,
+    });
+  } catch (error) {
+    console.error("Error calling contract function:", error);
+  }
+};
 
 // export const getNFTsByOwnerFunc = async (signer) => {
 //   try {

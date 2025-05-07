@@ -7,10 +7,11 @@ import {
   Clouds,
   Cubes,
   Ground,
+  Items,
   Player,
   TextureSelector,
 } from "../game-components";
-import { Header } from "../components";
+import { Header, Inventory, Shop } from "../components";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useStore } from "../hooks/useStore";
@@ -37,9 +38,15 @@ const Stars = () => {
 
 export default function Game() {
   const [loader, setLoader] = useState(false);
+  const [] = useState(false);
   // const [data, setData] = useState([]);
   const params = useParams();
-  const [setData] = useStore((state) => [state.setData]);
+  const [setData, shopMenu, setShopMenu, inventoryBar] = useStore((state) => [
+    state.setData,
+    state.shopMenu,
+    state.setShopMenu,
+    state.inventoryBar,
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,6 +72,7 @@ export default function Game() {
           <Ground />
           <Player />
           <Cubes />
+          <Items />
         </Physics>
         <Stars />
       </Canvas>
@@ -81,6 +89,8 @@ export default function Game() {
           />
         </svg>
       </div>
+      {shopMenu && <Shop />}
+      {inventoryBar && <Inventory />}
       <Header />
     </div>
   );

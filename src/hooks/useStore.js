@@ -61,4 +61,12 @@ export const useStore = create((set) => ({
   setActiveWorldID: (toggle) => {
     set(() => ({ activeWorldID: toggle }));
   },
+  shopMenu: false,
+  setShopMenu: (toggle) => {
+    set(() => ({ shopMenu: toggle }));
+  },
+  inventoryBar: false,
+  setInventoryBar: (toggle) => {
+    set(() => ({ inventoryBar: toggle }));
+  },
 }));

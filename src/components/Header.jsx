@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "./Loader";
 import { ConnectWallet } from "./ConnectWallet";
 import { useStore } from "../hooks/useStore";
 import { updateWorldFunc } from "../utils/contractFunctionCall";
+import { logoImg } from "../assets";
 
 const Header = ({ isHome }) => {
   const [loader, setLoader] = useState(false);
@@ -13,9 +14,14 @@ const Header = ({ isHome }) => {
     state.activeWorldID,
   ]);
   const params = useParams();
+  const navigate = useNavigate();
 
   const saveGameData = async () => {
     const [cid, tokenId] = params.id.split("_");
+    if (tokenId == "1") {
+      navigate("/");
+      return;
+    }
     console.log("tokendID : " + tokenId);
     setLoader(true);
     const objData = {
@@ -37,7 +43,7 @@ const Header = ({ isHome }) => {
         <div className="flex gap-4 items-center">
           <Link to="/" className="cursor-pointer">
             <div className="leading-7 m-0 p-0">
-              <img src={"#"} className="h-8  " />
+              <img src={logoImg} className="h-10  " />
             </div>
           </Link>
         </div>

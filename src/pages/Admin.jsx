@@ -7,9 +7,12 @@ import {
 import { getBalance, getBlockNumber, readContract } from "@wagmi/core";
 import { wagmiConfig } from "../utils/wagmiConfig";
 import {
+  createItemsFunc,
   createWorldFunc,
+  getItemDataFunc,
   getOwnerNftsFunc,
   getTokenID,
+  mintitemNFTFunc,
 } from "../utils/contractFunctionCall";
 
 export default function Admin() {
@@ -25,6 +28,16 @@ export default function Admin() {
   const getOwnerLands = async () => {
     await getOwnerNftsFunc();
   };
+  const getItemsData = async () => {
+    await getItemDataFunc(2);
+  };
+
+  const createNFTItems = async () => {
+    await createItemsFunc("Grass-3", "Grass-3", 100, 2);
+  };
+  const mintitemNFT = async () => {
+    await mintitemNFTFunc(0);
+  };
 
   return (
     <div className="adminpage w-screen flex flex-col px-20 gap-10 pt-10">
@@ -39,6 +52,15 @@ export default function Admin() {
       </button>
       <button onClick={updateWorld} className="btn">
         updateWorld
+      </button>
+      <button onClick={getItemsData} className="btn">
+        getItemsData
+      </button>
+      <button onClick={createNFTItems} className="btn">
+        createNFTItems
+      </button>
+      <button onClick={mintitemNFT} className="btn">
+        mintitemNFT
       </button>
     </div>
   );

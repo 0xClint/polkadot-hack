@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header, Loader } from "../components";
-import { bgImg } from "../assets";
+import { bgImg, landImg, landsImg, logoImg, settingImg } from "../assets";
 import { RxCross2 } from "react-icons/rx";
 import {
   createWorldFunc,
@@ -94,7 +94,9 @@ export default function Home() {
               className="absolute w-[490px]  make-flex text-black justify-end px-2 pt-2 cursor-pointer"
               onClick={() => setLoadGame(false)}
             >
-              <span>X</span>
+              <span>
+                <RxCross2 />
+              </span>
             </div>
             <ul className=" z-100 gameloader-container w-[500px] text-black bg-[#dce4b7] min-h-[300px] py-12 card-container make-flex justify-start flex-col gap-3 px-7">
               {worldList && worldList.length ? (
@@ -133,10 +135,12 @@ export default function Home() {
         <div className="control setting menu absolute h-screen w-screen make-flex ">
           <div className=" bg-[#8f2d0fd0] rounded-[30px]">
             <div
-              className="absolute w-[440px] text-white make-flex justify-end px-2 pt-2 cursor-pointer"
+              className="absolute w-[440px]  make-flex justify-end px-2 pt-2 cursor-pointer"
               onClick={() => setControlMenu(false)}
             >
-              <span className="font-bold">X</span>
+              <span className="font-bold">
+                <RxCross2 />
+              </span>
             </div>
             <ul className=" z-100 menu-container w-[450px]  py-12 card-container make-flex flex-col gap-3 ">
               <li className=" flex justify-between w-[80%] ">
@@ -190,14 +194,14 @@ export default function Home() {
       <img src={bgImg} className="absolute -z-10 h-screen w-screen" />
       <Header isHome={true} />
       <div className="make-flex justify-start pt-32 w-screen h-screen flex-col gap-8">
-        <img src={"#"} className="h-20" />
+        <img src={logoImg} className="h-20" />
         <div className="w-screen mx-auto h-[300px] make-flex gap-14">
           <div
             onClick={() => setNewWorldMenu(true)}
             className="make-flex flex-col card-container gap-2 w-[280px] h-[280px] text-base cursor-pointer"
           >
             <div className="img-container w-[200px] h-[200px] make-flex">
-              {/* <img src={landImg} className="" /> */}
+              <img src={landImg} className="h-[150px]" />
             </div>
             <h2 className="text-lg">Create World</h2>
           </div>
@@ -206,7 +210,7 @@ export default function Home() {
             className="make-flex flex-col card-container gap-2 w-[280px] h-[280px] text-base cursor-pointer"
           >
             <div className="img-container w-[200px] h-[200px] make-flex">
-              {/* <img src={landsImg} className="" /> */}
+              <img src={landsImg} className="" />
             </div>
             <h2 className="text-lg">Load World</h2>
           </div>
@@ -215,7 +219,7 @@ export default function Home() {
             className="make-flex flex-col card-container gap-2 w-[280px] h-[280px] text-base cursor-pointer"
           >
             <div className="img-container w-[200px] h-[200px] make-flex">
-              {/* <img src={settingIcon} className="" /> */}
+              <img src={settingImg} className="h-[160px]" />
             </div>
             <h2 className="text-lg">Game Settings</h2>
           </div>

@@ -41,9 +41,20 @@ const TextureSelector = () => {
     profileMenu,
   } = useKeyboard();
 
-  const [activeTexture, setTexture] = useStore((state) => [
+  const [
+    activeTexture,
+    setTexture,
+    shopMenu,
+    setShopMenu,
+    inventorybar,
+    setInventoryBar,
+  ] = useStore((state) => [
     state.blockTexture,
     state.setBlockTexture,
+    state.shopMenu,
+    state.setShopMenu,
+    state.inventoryBar,
+    state.setInventoryBar,
   ]);
 
   const [loader, setLoader] = useState(false);
@@ -69,10 +80,29 @@ const TextureSelector = () => {
     };
 
     const pressedTexture = Object.entries(textures).find(([k, v]) => v);
+    // console.log(pressedTexture);
     if (pressedTexture) {
-      setTexture(pressedTexture[0]);
+      if (pressedTexture[0] == "buyMenu") {
+        setShopMenu(!shopMenu);
+        // setActiveConfig(activeConfig == "shopMenu" ? "e" : "shopMenu");
+      } else if (pressedTexture[0] == "inventory") {
+        setInventoryBar(!inventorybar);
+      } else {
+        setTexture(pressedTexture[0]);
+      }
     }
-  }, [setTexture, grass, tree, glass, wood, diamond, quartz, stone]);
+  }, [
+    setTexture,
+    grass,
+    tree,
+    glass,
+    wood,
+    diamond,
+    quartz,
+    stone,
+    buyMenu,
+    inventory,
+  ]);
 
   return (
     <div>
