@@ -8,3 +8,8 @@ export const shortenAddress = (address, length = 4) => {
 
   return `${start}...${end}`;
 };
+
+export const extractCID = (url) => {
+  const prefix = "https://gateway.lighthouse.storage/ipfs/";
+  return url.startsWith(prefix) ? url.slice(prefix.length) : url;
+};

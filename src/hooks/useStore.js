@@ -57,4 +57,8 @@ export const useStore = create((set) => ({
       }),
     }));
   },
+  activeWorldID: 0,
+  setActiveWorldID: (toggle) => {
+    set(() => ({ activeWorldID: toggle }));
+  },
 }));

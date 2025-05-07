@@ -2,7 +2,7 @@ import "./Game.css";
 import { Physics } from "@react-three/cannon";
 import { PointerLockControls, Sky } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Clouds,
   Cubes,
@@ -11,6 +11,9 @@ import {
   TextureSelector,
 } from "../game-components";
 import { Header } from "../components";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useStore } from "../hooks/useStore";
 
 const Stars = () => {
   return (
@@ -33,6 +36,24 @@ const Stars = () => {
 };
 
 export default function Game() {
+  const [loader, setLoader] = useState(false);
+  // const [data, setData] = useState([]);
+  const params = useParams();
+  const [setData] = useStore((state) => [state.setData]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [cid, tokenId] = params.id.split("_");
+      const res = await axios.get(
+        `https://gateway.lighthouse.storage/ipfs/${cid}/`
+      );
+
+      console.log(res.data);
+      setData(res.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="game-app">
       <Canvas style={{ height: "100vh" }}>

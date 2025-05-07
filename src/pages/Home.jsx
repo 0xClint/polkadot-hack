@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../components";
+import { Header, Loader } from "../components";
 import { bgImg } from "../assets";
+import { RxCross2 } from "react-icons/rx";
+import {
+  createWorldFunc,
+  getOwnerNftsFunc,
+} from "../utils/contractFunctionCall";
+import { useStore } from "../hooks/useStore";
+import { extractCID } from "../helpers/convertor";
 
 export default function Home() {
   const [loader, setLoader] = useState(false);
@@ -9,19 +16,48 @@ export default function Home() {
   const [loadGame, setLoadGame] = useState(false);
   const [newWorldMenu, setNewWorldMenu] = useState(false);
   const [worldName, setWorldName] = useState("");
-  // const [worldID, setWorldID] = useState("");
+  const [worldList, setWorldList] = useState([]);
   const [worldDescription, setWorldDescription] = useState("");
-  const route = useNavigate();
+  const navigate = useNavigate();
+  // const [setActiveWorldID] = useStore((state) => [state.setActiveWorldID]);
+
+  const createWorld = async () => {
+    if (worldName && worldDescription) {
+      try {
+        setLoader(true);
+        const data = await createWorldFunc(worldName, worldDescription);
+
+        setLoader(false);
+        setNewWorldMenu(false);
+        navigate(`/world/${data.CID}_${data.nextToken}`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const fetchWorld = async () => {
+    try {
+      setLoader(true);
+      setWorldList(await getOwnerNftsFunc());
+      setLoadGame(true);
+      setLoader(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="homepage">
       {newWorldMenu && (
         <div className="control setting menu absolute h-screen w-screen make-flex ">
           <div className=" bg-[#8f2d0fd0] rounded-[30px]">
             <div
-              className="absolute w-[500px] -translate-x-1 translate-y-1  text-white make-flex justify-end px-2 pt-2 cursor-pointer"
+              className="absolute w-[500px] -translate-x-1 translate-y-1   make-flex justify-end px-2 pt-2 cursor-pointer"
               onClick={() => setNewWorldMenu(false)}
             >
-              <span>X</span>
+              <span>
+                <RxCross2 />
+              </span>
             </div>
             <div className="z-100 gameloader-container w-[500px] min-h-[200px]  py-7 card-container make-flex justify-start flex-col gap-3 px-7">
               <div className="w-full">
@@ -42,8 +78,8 @@ export default function Home() {
                 />
               </div>
               <button
-                className="btn py-3 px-6 text-md text-white hover:scale-[102%]"
-                // onClick={() => createWorld()}
+                className="btn py-3 px-6 text-md  hover:scale-[102%]"
+                onClick={() => createWorld()}
               >
                 Create
               </button>
@@ -60,18 +96,24 @@ export default function Home() {
             >
               <span>X</span>
             </div>
-            {/* <ul className=" z-100 gameloader-container w-[500px] text-black bg-[#dce4b7] min-h-[300px] py-12 card-container make-flex justify-start flex-col gap-3 px-7">
+            <ul className=" z-100 gameloader-container w-[500px] text-black bg-[#dce4b7] min-h-[300px] py-12 card-container make-flex justify-start flex-col gap-3 px-7">
               {worldList && worldList.length ? (
                 worldList.map(({ name, tokenId, uri }) => {
                   const tokenID = Number(tokenId);
+
+                  if (
+                    !name ||
+                    uri.startsWith("https://gateway.lighthouse.storage/ipfs/")
+                  )
+                    return;
+
                   return (
                     <li
                       className=" text-center w-full py-1  cursor-pointer hover:bg-[#d0d85c]"
                       key={tokenID}
                       onClick={() => {
-                        setActiveWorldID(tokenID);
                         setLoadGame(false);
-                        navigate(`/world/${uri}`);
+                        navigate(`/world/${uri}_${tokenID}`);
                       }}
                     >
                       {name}
@@ -83,7 +125,7 @@ export default function Home() {
                   No world Created Yet
                 </li>
               )}
-            </ul> */}
+            </ul>
           </div>
         </div>
       )}
@@ -160,7 +202,7 @@ export default function Home() {
             <h2 className="text-lg">Create World</h2>
           </div>
           <div
-            // onClick={() => fetchWorld()}
+            onClick={() => fetchWorld()}
             className="make-flex flex-col card-container gap-2 w-[280px] h-[280px] text-base cursor-pointer"
           >
             <div className="img-container w-[200px] h-[200px] make-flex">
@@ -179,7 +221,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* {loader && <Loader />} */}
+      {loader && <Loader />}
     </div>
   );
 }

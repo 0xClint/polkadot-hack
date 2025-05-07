@@ -1,10 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loader from "./Loader";
 import { ConnectWallet } from "./ConnectWallet";
+import { useStore } from "../hooks/useStore";
+import { updateWorldFunc } from "../utils/contractFunctionCall";
 
 const Header = ({ isHome }) => {
   const [loader, setLoader] = useState(false);
+  const [cubes, items, activeWorldID] = useStore((state) => [
+    state.cubes,
+    state.items,
+    state.activeWorldID,
+  ]);
+  const params = useParams();
+
+  const saveGameData = async () => {
+    const [cid, tokenId] = params.id.split("_");
+    console.log("tokendID : " + tokenId);
+    setLoader(true);
+    const objData = {
+      cubes,
+      items,
+    };
+    // console.log("worldId: " + activeWorldID);
+    console.log(objData);
+    try {
+      await updateWorldFunc(Number(tokenId), objData);
+      setLoader(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="absolute z-10 top-0 w-screen flex flex-col">
       <div className="w-full flex text-[2rem] justify-between items-center h-16 px-5 ">
@@ -36,10 +62,7 @@ const Header = ({ isHome }) => {
             <ConnectWallet />
           )}
           {!isHome && (
-            <button
-              className="btn"
-              // onClick={() => saveGameData()}
-            >
+            <button className="btn" onClick={() => saveGameData()}>
               Save
             </button>
           )}
