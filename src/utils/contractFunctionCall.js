@@ -89,6 +89,25 @@ export const updateWorldFunc = async (tokenID, objData) => {
     console.error("Error calling contract function:", error);
   }
 };
+export const transferWorldFunc = async (receipentAddress, tokenId) => {
+  const account = getAccount(wagmiConfig);
+  try {
+    const { request } = await simulateContract(wagmiConfig, {
+      abi: WORLD_CONTRACT_ABI,
+      address: WORLD_CONTRACT_ADDRESS,
+      functionName: "transferWorld",
+      args: [account.address, receipentAddress, tokenId],
+    });
+
+    const hash = await writeContract(wagmiConfig, request);
+    console.log(hash);
+    await waitForTransactionReceipt(wagmiConfig, {
+      hash,
+    });
+  } catch (error) {
+    console.error("Error calling contract function:", error);
+  }
+};
 
 export const getOwnerNftsFunc = async () => {
   const account = getAccount(wagmiConfig);

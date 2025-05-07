@@ -14,6 +14,7 @@ import {
   getOwnerNftsFunc,
   getTokenID,
   mintitemNFTFunc,
+  transferWorldFunc,
 } from "../utils/contractFunctionCall";
 
 export default function Admin() {
@@ -39,6 +40,9 @@ export default function Admin() {
   const mintitemNFT = async () => {
     await mintitemNFTFunc(0);
   };
+  const transferNFT = async () => {
+    await transferWorldFunc("0xf1E507654e8E8b35bf467fd255c1c5787527aC2D",0);
+  };
 
   return (
     <div className="adminpage w-screen flex flex-col px-20 gap-10 pt-10">
@@ -55,13 +59,16 @@ export default function Admin() {
         updateWorld
       </button>
       <button onClick={getOwnerItems} className="btn">
-      getOwnerItems
+        getOwnerItems
       </button>
       <button onClick={createNFTItems} className="btn">
         createNFTItems
       </button>
       <button onClick={mintitemNFT} className="btn">
         mintitemNFT
+      </button>
+      <button onClick={transferNFT} className="btn">
+        transferNFT
       </button>
     </div>
   );
