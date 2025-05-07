@@ -28,10 +28,10 @@ const Shop = () => {
 
   const buyItemNFT = async (tokenId) => {
     setLoader(true);
-
+    console.log("tokendId : " + tokenId);
     await mintitemNFTFunc(tokenId);
     setLoader(false);
-    // setBuyMenu(false);
+    setBuyMenu(false);
   };
 
   return (

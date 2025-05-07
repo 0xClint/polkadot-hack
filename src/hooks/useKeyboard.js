@@ -20,6 +20,7 @@ function actionByKey(key) {
     KeyE: "settings",
     KeyB: "buyMenu",
     KeyI: "infoMenu",
+    KeyC: "controlMenu",
     // keyT: "saveBtn",
   };
   return keyActionMap[key];
@@ -45,7 +46,8 @@ export const useKeyboard = () => {
     settings: false,
     buyMenu: false,
     infoMenu: false,
-    profileMenu: false
+    controlMenu: false,
+    profileMenu: false,
   });
 
   const handleKeyDown = useCallback((e) => {

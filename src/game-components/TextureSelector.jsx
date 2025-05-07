@@ -10,7 +10,9 @@ import {
   stoneImg,
   treeImg,
 } from "../assets/block-icons/images";
-// import { InfoIcon, bagPackIcon, gearIcon, saveIcon, shopIcon } from "../assets";
+import { FiShoppingBag } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { PiGameController } from "react-icons/pi";
 import Loader from "../components/Loader";
 
 const images = {
@@ -39,6 +41,7 @@ const TextureSelector = () => {
     infoMenu,
     saveBtn,
     profileMenu,
+    controlMenu,
   } = useKeyboard();
 
   const [
@@ -48,6 +51,8 @@ const TextureSelector = () => {
     setShopMenu,
     inventorybar,
     setInventoryBar,
+    controlBar,
+    setControlBar,
   ] = useStore((state) => [
     state.blockTexture,
     state.setBlockTexture,
@@ -55,6 +60,8 @@ const TextureSelector = () => {
     state.setShopMenu,
     state.inventoryBar,
     state.setInventoryBar,
+    state.controlBar,
+    state.setControlBar,
   ]);
 
   const [loader, setLoader] = useState(false);
@@ -77,6 +84,7 @@ const TextureSelector = () => {
       infoMenu,
       saveBtn,
       profileMenu,
+      controlMenu,
     };
 
     const pressedTexture = Object.entries(textures).find(([k, v]) => v);
@@ -87,6 +95,8 @@ const TextureSelector = () => {
         // setActiveConfig(activeConfig == "shopMenu" ? "e" : "shopMenu");
       } else if (pressedTexture[0] == "inventory") {
         setInventoryBar(!inventorybar);
+      } else if (pressedTexture[0] == "controlMenu") {
+        setControlBar(!controlBar);
       } else {
         setTexture(pressedTexture[0]);
       }
@@ -102,6 +112,7 @@ const TextureSelector = () => {
     stone,
     buyMenu,
     inventory,
+    controlMenu,
   ]);
 
   return (
@@ -123,7 +134,59 @@ const TextureSelector = () => {
           );
         })}
       </div>
-
+      <div className="icon-container absolute right-0 top-[30%] z-10 cursor-pointer">
+        {/* <div onClick={() => setSettingMenu(!settingMenu)}>
+          <span className="absolute text-[9px] m-1 translate-x-[7px] translate-y-[3px] text-[#7b260c] font-semibold">
+            E
+          </span>
+          <img
+            src={gearIcon}
+            className={`${"setting" === activeConfig ? "active" : ""}`}
+          />
+        </div> */}
+        <div
+          onClick={() => setShopMenu(!shopMenu)}
+          className="btn-items relative flex-center"
+        >
+          <span className="absolute top-1 left-1 text-[9px] text-[#0e0d0d] font-semibold">
+            B
+          </span>
+          <FiShoppingBag className="text-2xl" />
+        </div>
+        <div
+          onClick={() => setInventoryBar(!inventorybar)}
+          className="btn-items relative flex-center"
+        >
+          <span className="absolute top-1 left-1 text-[9px] text-[#0e0d0d] font-semibold">
+            Q
+          </span>
+          <IoSettingsOutline className="text-2xl" />
+        </div>
+        <div
+          onClick={() => setInventoryBar(!inventorybar)}
+          className="btn-items relative flex-center"
+        >
+          <span className="absolute top-1 left-1 text-[9px] text-[#0e0d0d] font-semibold">
+            C
+          </span>
+          <PiGameController className="text-2xl" />
+        </div>
+        {/* <div onClick={() => setInfoBar(!infoBar)}>
+          <span className="absolute text-[9px] m-1 translate-x-[7px] translate-y-[3px] text-[#7b260c]">
+            I
+          </span>
+          <img
+            src={InfoIcon}
+            className={`${"infoMenu" === activeConfig ? "active" : ""}`}
+          />
+          {infoBar && (
+            <ul className="btn absolute  -translate-x-[250px] -translate-y-[75px] w-[250px] text-[18px] py-2 px-3 font-vt">
+              <li>To exist view press ESC</li>
+              <li> Click on the center pointer to continue</li>
+            </ul>
+          )}
+        </div> */}
+      </div>
       <div
         className="icon-container absolute flex left-2 gap-3 cursor-pointer bottom-2"
         style={{ margin: 0 }}

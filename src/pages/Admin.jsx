@@ -10,6 +10,7 @@ import {
   createItemsFunc,
   createWorldFunc,
   getItemDataFunc,
+  getNFTsByOwnerFunc,
   getOwnerNftsFunc,
   getTokenID,
   mintitemNFTFunc,
@@ -28,8 +29,8 @@ export default function Admin() {
   const getOwnerLands = async () => {
     await getOwnerNftsFunc();
   };
-  const getItemsData = async () => {
-    await getItemDataFunc(2);
+  const getOwnerItems = async () => {
+    await getNFTsByOwnerFunc();
   };
 
   const createNFTItems = async () => {
@@ -53,8 +54,8 @@ export default function Admin() {
       <button onClick={updateWorld} className="btn">
         updateWorld
       </button>
-      <button onClick={getItemsData} className="btn">
-        getItemsData
+      <button onClick={getOwnerItems} className="btn">
+      getOwnerItems
       </button>
       <button onClick={createNFTItems} className="btn">
         createNFTItems

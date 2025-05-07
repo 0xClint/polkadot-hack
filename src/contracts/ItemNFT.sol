@@ -40,7 +40,6 @@ contract NemoItems is ERC1155, Ownable {
     constructor(string memory baseURI) ERC1155(baseURI) Ownable(msg.sender) {}
 
     // --- Item Creation ---
-
     function createItemByOwner(
         string memory _name,
         string memory _description,
@@ -79,24 +78,15 @@ contract NemoItems is ERC1155, Ownable {
     }
 
     // --- Minting ---
-
-    function mint(uint256 _itemId) external payable {
+    function mint(uint256 _itemId) external {
         Item memory item = items[_itemId];
         require(itemBalances[_itemId][msg.sender] < item.maxSupply, "Max supply reached");
-        require(msg.value >= item.price, "Insufficient funds");
 
         _mint(msg.sender, _itemId, 1, "");
         itemBalances[_itemId][msg.sender]++;
-
-        uint256 excess = msg.value - item.price;
-        if (excess > 0) {
-            (bool success, ) = payable(msg.sender).call{value: excess}("");
-            require(success, "Refund failed");
-        }
     }
 
     // --- Item Update ---
-
     function updateItem(uint256 _itemId, string memory _newDescription) external {
         Item storage item = items[_itemId];
         require(item.itemType == ItemType.User, "Item type not supported");
@@ -108,7 +98,6 @@ contract NemoItems is ERC1155, Ownable {
     }
 
     // --- Metadata ---
-
     function uri(uint256 _itemId) public view override returns (string memory) {
         return string(abi.encodePacked(super.uri(0), _itemId.toString()));
     }
@@ -118,7 +107,6 @@ contract NemoItems is ERC1155, Ownable {
     }
 
     // --- Admin Updates ---
-
     function setItemURI(uint256 _itemId, string memory newURI) external onlyOwner {
         items[_itemId].description = newURI;
     }
@@ -132,7 +120,6 @@ contract NemoItems is ERC1155, Ownable {
     }
 
     // --- Views ---
-
     function getRemainingSupply(uint256 _itemId) public view returns (uint256) {
         return items[_itemId].maxSupply - itemBalances[_itemId][msg.sender];
     }
@@ -177,5 +164,30 @@ contract NemoItems is ERC1155, Ownable {
 
     function isCreatorItem(uint256 itemId) external view returns (bool) {
         return items[itemId].itemType == ItemType.Creator;
+    }
+
+    function getItem(uint256 _itemId) external view returns (
+        string memory name,
+        string memory description,
+        uint256 price,
+        uint256 maxSupply,
+        uint256 tagID,
+        ItemType itemType,
+        address owner
+    ) {
+        Item memory item = items[_itemId];
+        return (
+            item.name,
+            item.description,
+            item.price,
+            item.maxSupply,
+            item.tagID,
+            item.itemType,
+            item.owner
+        );
+    }
+
+    function getNextTokenId() external view returns (uint256) {
+        return nextItemId;
     }
 }

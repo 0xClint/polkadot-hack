@@ -27,6 +27,7 @@ contract Nemo is ERC1155, Ownable {
         string description
     );
     event TokenURIUpdated(uint256 indexed tokenId, string newURI);
+    event WorldTransferred(uint256 indexed tokenId, address indexed from, address indexed to);
 
     struct NFT {
         uint256 tokenId;
@@ -79,6 +80,22 @@ contract Nemo is ERC1155, Ownable {
         }
 
         return nextTokenId - 1;
+    }
+
+    function transferWorld(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external {
+        require(from == msg.sender, "Only token owner can transfer");
+        require(_tokenExists[tokenId], "Token does not exist");
+        require(balanceOf(from, tokenId) >= 1, "Insufficient balance");
+
+        _safeTransferFrom(from, to, tokenId, 1, "");
+
+        _tokenCreators[tokenId] = to;
+
+        emit WorldTransferred(tokenId, from, to);
     }
 
     function updateURI(uint256 tokenId, string memory newURI) external onlyOwnerOrCreator(tokenId) {
@@ -140,5 +157,9 @@ contract Nemo is ERC1155, Ownable {
 
     function setBaseURI(string memory newBaseURI) external onlyOwner {
         _baseTokenURI = newBaseURI;
+    }
+
+    function getNextTokenId() external view returns (uint256) {
+        return nextTokenId;
     }
 }

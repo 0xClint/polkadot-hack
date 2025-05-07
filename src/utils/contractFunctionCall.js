@@ -116,19 +116,9 @@ export const getOwnerNftsFunc = async () => {
   }
 };
 
+//NO
 export const getItemDataFunc = async (id) => {
-  const account = getAccount(wagmiConfig);
   try {
-    // const res = await axios.get(
-    //   `https://blockscout-asset-hub.parity-chains-scw.parity.io/api/v2/addresses/${account.address}/nft?type=ERC-721%2CERC-404%2CERC-1155`
-    // );
-    // let data = res.data.items;
-
-    // data = data.filter(
-    //   ({ token }) =>
-    //     token.address.toLowerCase() === WORLD_CONTRACT_ADDRESS.toLowerCase()
-    // );
-    // console.log(data);
     const res = await readContract(wagmiConfig, {
       abi: ITEM_NFT_CONTRACT_ABI,
       address: ITEM_NFT_CONTRACT_ADDRESS,
@@ -169,14 +159,12 @@ export const createItemsFunc = async (
 };
 
 export const mintitemNFTFunc = async (itemID) => {
-  console.log(parseGwei("0.0000001"));
   try {
     const { request } = await simulateContract(wagmiConfig, {
       abi: ITEM_NFT_CONTRACT_ABI,
       address: ITEM_NFT_CONTRACT_ADDRESS,
       functionName: "mint",
-      args: [2],
-      value: parseEther("0.00001"),
+      args: [itemID],
     });
 
     const hash = await writeContract(wagmiConfig, request);
@@ -189,21 +177,22 @@ export const mintitemNFTFunc = async (itemID) => {
   }
 };
 
-// export const getNFTsByOwnerFunc = async (signer) => {
-//   try {
-//     const contract = new ethers.Contract(
-//       WORLD_CONTRACT_ADDRESS,
-//       WORLD_CONTRACT_ABI,
-//       signer
-//     );
-//     const account = await signer.getAddress();
-//     const res = await contract.getNFTsByOwner(account);
-//     console.log(res);
-//     return res;
-//   } catch (error) {
-//     console.error("Error calling contract function:", error);
-//   }
-// };
+export const getNFTsByOwnerFunc = async (signer) => {
+  const account = getAccount(wagmiConfig);
+  try {
+    const res = await readContract(wagmiConfig, {
+      abi: ITEM_NFT_CONTRACT_ABI,
+      address: ITEM_NFT_CONTRACT_ADDRESS,
+      functionName: "getItemsForUser",
+      args: [account.address],
+    });
+    const data = res.map((item) => Number(item));
+    // console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error calling contract function:", error);
+  }
+};
 
 // // ***********item NFT contract************
 

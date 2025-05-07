@@ -11,7 +11,7 @@ import {
   Player,
   TextureSelector,
 } from "../game-components";
-import { Header, Inventory, Shop } from "../components";
+import { ControlMenu, Header, Inventory, Shop } from "../components";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useStore } from "../hooks/useStore";
@@ -41,11 +41,20 @@ export default function Game() {
   const [] = useState(false);
   // const [data, setData] = useState([]);
   const params = useParams();
-  const [setData, shopMenu, setShopMenu, inventoryBar] = useStore((state) => [
+  const [
+    setData,
+    shopMenu,
+    setShopMenu,
+    inventoryBar,
+    controlBar,
+    setControlBar,
+  ] = useStore((state) => [
     state.setData,
     state.shopMenu,
     state.setShopMenu,
     state.inventoryBar,
+    state.controlBar,
+    state.setControlBar,
   ]);
 
   useEffect(() => {
@@ -89,9 +98,10 @@ export default function Game() {
           />
         </svg>
       </div>
+      <Header />
       {shopMenu && <Shop />}
       {inventoryBar && <Inventory />}
-      <Header />
+      {controlBar && <ControlMenu setControlMenu={setControlBar} />}
     </div>
   );
 }

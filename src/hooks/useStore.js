@@ -69,4 +69,8 @@ export const useStore = create((set) => ({
   setInventoryBar: (toggle) => {
     set(() => ({ inventoryBar: toggle }));
   },
+  controlBar: false,
+  setControlBar: (toggle) => {
+    set(() => ({ controlBar: toggle }));
+  },
 }));
