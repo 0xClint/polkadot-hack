@@ -1,5 +1,8 @@
 # Nemo: A 3D Open World Sandbox Game
 
+Demo : https://go.web3approved.com/Gn70x
+Walkthrough : https://youtu.be/3cXCDCngp2k
+
 Welcome to _Nemo_, a web-based 3D sandbox game where players can explore, build, collect, and trade in a dynamic world powered by smart contracts on the Polkadot ecosystem.
 
 Built using _React Three Fiber_ for immersive 3D rendering and powered by _Polkadot's Westend Asset Hub_ and _PolkaVM, the game leverages Solidity smart contracts for game logic and ERC-1155 items. Metadata and web app deployment are handled via \*\*Appilon_.
