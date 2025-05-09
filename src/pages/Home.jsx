@@ -135,7 +135,7 @@ export default function Home() {
                   const tokenID = Number(tokenId);
                   if (
                     !name ||
-                    uri.startsWith("https://gateway.lighthouse.storage/ipfs/")
+                    uri.startsWith("https://ipfs.io/ipfs/")
                   )
                     return;
                   return (
@@ -199,7 +199,7 @@ export default function Home() {
 
                     if (
                       !name ||
-                      uri.startsWith("https://gateway.lighthouse.storage/ipfs/")
+                      uri.startsWith("https://ipfs.io/ipfs/")
                     )
                       return;
                     return (

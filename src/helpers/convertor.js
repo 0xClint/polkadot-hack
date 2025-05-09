@@ -10,6 +10,6 @@ export const shortenAddress = (address, length = 4) => {
 };
 
 export const extractCID = (url) => {
-  const prefix = "https://gateway.lighthouse.storage/ipfs/";
+  const prefix = "https://ipfs.io/ipfs/";
   return url.startsWith(prefix) ? url.slice(prefix.length) : url;
 };

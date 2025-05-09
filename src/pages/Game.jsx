@@ -61,7 +61,7 @@ export default function Game() {
     const fetchData = async () => {
       const [cid, tokenId] = params.id.split("_");
       const res = await axios.get(
-        `https://gateway.lighthouse.storage/ipfs/${cid}/`
+        `https://ipfs.io/ipfs/${cid}/`
       );
 
       console.log(res.data);

@@ -146,7 +146,7 @@ const Inventory = () => {
               </div>
               <div className="w-[105px]  h-[150px] make-flex justify-end flex-col bg-[#ead04e] rounded-xl">
                 <img
-                  src={`https://gateway.lighthouse.storage/ipfs/${customNFTData.description}`}
+                  src={`https://ipfs.io/ipfs/${customNFTData.description}`}
                   className="w-[70%]"
                 />
               </div>

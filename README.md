@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# Nemo: A 3D Open World Sandbox Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to _Nemo_, a web-based 3D sandbox game where players can explore, build, collect, and trade in a dynamic world powered by smart contracts on the Polkadot ecosystem.
 
-## Available Scripts
+Built using _React Three Fiber_ for immersive 3D rendering and powered by _Polkadot's Westend Asset Hub_ and _PolkaVM, the game leverages Solidity smart contracts for game logic and ERC-1155 items. Metadata and web app deployment are handled via \*\*Appilon_.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To run the project locally:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+bash
+git clone https://github.com/your-repo/nemo
+cd nemo
+npm install
+npm run start
 
-### `npm test`
+## 🎮 Controls
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Use the following keys and mouse actions to interact with the Nemo 3D sandbox world:
 
-### `npm run build`
+| Key / Input    | Action               |
+| -------------- | -------------------- |
+| W              | Forward              |
+| A              | Leftward             |
+| S              | Backward             |
+| D              | Rightward            |
+| Space          | Jump                 |
+| Click          | Build Block          |
+| Alt + Click    | Destroy Block        |
+| C              | Open Chatbox         |
+| Q              | Open Inventory       |
+| E              | Open Settings        |
+| B              | Buy Items            |
+| I              | Open Inventory (Alt) |
+| Mouse Movement | Look Around          |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> 💡 _Hint_: Use Click to place a block and Alt + Click to remove it. Inventory and purchase menus offer creative flexibility.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🧱 Game Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- _Dynamic World_: Explore or edit a voxel-based sandbox environment.
+- _Smart Contract Integration_: Every world and item is represented via a contract (ERC-1155).
+- _Ownership & Trading_: Create and trade your in-game assets.
+- _Metadata Storage_: All assets' data are hosted using Appilon.
 
-### `npm run eject`
+### 📦 Smart Contracts
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Contract  | Description                          | Stack                           |
+| --------- | ------------------------------------ | ------------------------------- |
+| Nemo      | Manages the 3D sandbox world         | Solidity on PolkaVM             |
+| NemoItems | Handles in-game items using ERC-1155 | OpenZeppelin, Westend Asset Hub |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 🔗 Ecosystem Integration
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| Component         | Role                                  |
+| ----------------- | ------------------------------------- |
+| React Three Fiber | Rendering 3D content on web           |
+| PolkaVM           | Backend execution engine (RISC-V)     |
+| Westend Asset Hub | Smart contract hosting (parachain)    |
+| Appilon           | Metadata storage & web app deployment |
 
-## Learn More
+## 📄 License
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+MIT License. See LICENSE for details.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🙌 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+We welcome contributions! Please open issues or submit PRs for improvements or bug fixes.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## ✨ Future Plans
 
-### Making a Progressive Web App
+- Multiplayer & Chat
+- AI Helper for in-game tasks
+- OpenSea Integration for World Viewing
+- Smoother asset minting & editing UX
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> Built with passion at Polkadot Scalability Hackathon 🚀
